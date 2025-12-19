@@ -1,0 +1,24 @@
+{
+  "name": "alura-books-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tairadev/node-primeira-api-express.git"
+  },
+  "author": "Guilherme Taira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tairadev/node-primeira-api-express/issues"
+  },
+  "homepage": "https://github.com/tairadev/node-primeira-api-express#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}
