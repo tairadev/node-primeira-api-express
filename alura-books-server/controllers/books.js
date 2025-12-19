@@ -1,5 +1,11 @@
 const fs = require("fs");
-const { getAllBooks, saveAllBooks } = require("../services/books");
+const {
+  getAllBooks,
+  getBookById,
+  insertBook,
+  deleteBookById,
+  updateBookById,
+} = require("../services/books");
 
 function getBooks(req, res) {
   const books = getAllBooks();
@@ -7,9 +13,8 @@ function getBooks(req, res) {
 }
 
 function getBook(req, res) {
-  const books = getAllBooks();
   const bookId = parseInt(req.params.id, 10);
-  const book = books.find((b) => b.id === bookId);
+  const book = getBookById(bookId);
   if (book) {
     res.json(book);
   } else {
@@ -25,32 +30,26 @@ function addBook(req, res) {
     titulo,
     autor,
   };
-  books.push(newBook);
-  saveAllBooks(books);
+  insertBook(newBook);
   res.status(201).json(newBook);
 }
 
 function updateBook(req, res) {
-  const books = getAllBooks();
   const bookId = parseInt(req.params.id, 10);
-  const { titulo, autor } = req.body;
-  const bookIndex = books.findIndex((b) => b.id === bookId);
-  if (bookIndex !== -1) {
-    books[bookIndex] = { id: bookId, titulo, autor };
-    saveAllBooks(books);
-    res.json(books[bookIndex]);
+
+  const updatedBook = updateBookById(bookId, req.body);
+
+  if (updatedBook) {
+    res.json(updatedBook);
   } else {
     res.status(404).json({ message: "Book not found" });
   }
 }
 
 function deleteBook(req, res) {
-  const books = getAllBooks();
   const bookId = parseInt(req.params.id, 10);
-  const bookIndex = books.findIndex((b) => b.id === bookId);
-  if (bookIndex !== -1) {
-    books.splice(bookIndex, 1);
-    saveAllBooks(books);
+  const deleted = deleteBookById(bookId);
+  if (deleted) {
     res.status(204).end();
   } else {
     res.status(404).json({ message: "Book not found" });
