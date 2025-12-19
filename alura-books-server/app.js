@@ -1,6 +1,9 @@
 const express = require("express");
+const booksRouter = require("./routes/books");
 
 const app = express();
+
+app.use("/books", booksRouter);
 
 const port = 8000;
 
